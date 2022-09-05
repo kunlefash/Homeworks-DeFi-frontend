@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Web3Info from './components/web3Info.js';
+import { useWeb3 } from '@openzeppelin/network/react';
+
+const infuraProjectId = '95202223388e49f48b423ea50a70e336';
 
 function App() {
+
+  const web3Context = useWeb3(`wss://mainnet.infura.io/ws/v3/${infuraProjectId}`);
+  const { networkId, networkName, providerName } = web3Context;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <h1>OpenZeppelin Network.js</h1>
+        <div>Network: {networkId ? `${networkId} – ${networkName}` : 'No connection'}</div>
+        <div>Provider: {providerName}</div>
+      </div>
     </div>
   );
 }
